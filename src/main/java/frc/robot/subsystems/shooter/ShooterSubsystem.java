@@ -70,10 +70,10 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
         updatePreferences();
 
-        targetRpm = 3295; // TODO - Make the values
+        targetRpm = 2000; // TODO - Make the values
         isActive = false;
 
-        SmartDashboard.putNumber(CommandingNames.Shooter.tolerance, 0.015);
+        SmartDashboard.putNumber(CommandingNames.Shooter.tolerance, 0.012);
 
         logger.info("constructed");
     }
@@ -182,7 +182,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public boolean atTargetVelocity() {
         // FIXME - Find a way to only get a change via GUI
-        tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.015);
+        tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.012);
 
         return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= tolerance);
     }
