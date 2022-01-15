@@ -35,22 +35,22 @@ public class PreferencesInitializer {
 
         if (!Preferences.containsKey(Drive.pid_P)) {
             logger.warn("{} doesn't exist; creating with default", Drive.pid_P);
-            Preferences.putDouble(Drive.pid_P, 0.0);
+            Preferences.setDouble(Drive.pid_P, 0.0);
         }
 
         if (!Preferences.containsKey(Drive.pid_I)) {
             logger.warn("{} doesn't exist; creating with default", Drive.pid_I);
-            Preferences.putDouble(Drive.pid_I, 0.0);
+            Preferences.setDouble(Drive.pid_I, 0.0);
         }
 
         if (!Preferences.containsKey(Drive.pid_D)) {
             logger.warn("{} doesn't exist; creating with default", Drive.pid_D);
-            Preferences.putDouble(Drive.pid_D, 0.0);
+            Preferences.setDouble(Drive.pid_D, 0.0);
         }
 
         if (!Preferences.containsKey(Drive.pid_F)) {
             logger.warn("{} doesn't exist; creating with default", Drive.pid_F);
-            Preferences.putDouble(Drive.pid_F, 0.0);
+            Preferences.setDouble(Drive.pid_F, 0.0);
         }
 
         /*
@@ -59,22 +59,22 @@ public class PreferencesInitializer {
 
         if (!Preferences.containsKey(Turret.pid_P)) {
             logger.warn("{} doesn't exist; creating with default", Turret.pid_P);
-            Preferences.putDouble(Turret.pid_P, 0.0);
+            Preferences.setDouble(Turret.pid_P, 0.0);
         }
 
         if (!Preferences.containsKey(Turret.pid_I)) {
             logger.warn("{} doesn't exist; creating with default", Turret.pid_I);
-            Preferences.putDouble(Turret.pid_I, 0.0);
+            Preferences.setDouble(Turret.pid_I, 0.0);
         }
 
         if (!Preferences.containsKey(Turret.pid_D)) {
             logger.warn("{} doesn't exist; creating with default", Turret.pid_D);
-            Preferences.putDouble(Turret.pid_D, 0.0);
+            Preferences.setDouble(Turret.pid_D, 0.0);
         }
 
         if (!Preferences.containsKey(Turret.pid_F)) {
             logger.warn("{} doesn't exist; creating with default", Turret.pid_F);
-            Preferences.putDouble(Turret.pid_F, 0.0);
+            Preferences.setDouble(Turret.pid_F, 0.0);
         }
 
         /*
@@ -83,22 +83,22 @@ public class PreferencesInitializer {
 
         if (!Preferences.containsKey(Shooter.pid_P)) {
             logger.warn("{} doesn't exist; creating with default", Shooter.pid_P);
-            Preferences.putDouble(Shooter.pid_P, 0.0);
+            Preferences.setDouble(Shooter.pid_P, 0.0);
         }
 
         if (!Preferences.containsKey(Shooter.pid_I)) {
             logger.warn("{} doesn't exist; creating with default", Shooter.pid_I);
-            Preferences.putDouble(Shooter.pid_I, 0.0);
+            Preferences.setDouble(Shooter.pid_I, 0.0);
         }
 
         if (!Preferences.containsKey(Shooter.pid_D)) {
             logger.warn("{} doesn't exist; creating with default", Shooter.pid_D);
-            Preferences.putDouble(Shooter.pid_D, 0.0);
+            Preferences.setDouble(Shooter.pid_D, 0.0);
         }
 
         if (!Preferences.containsKey(Shooter.pid_F)) {
             logger.warn("{} doesn't exist; creating with default", Shooter.pid_F);
-            Preferences.putDouble(Shooter.pid_F, 0.0);
+            Preferences.setDouble(Shooter.pid_F, 0.0);
         }
 
         logger.info("preferences as initialized:\n");

@@ -66,7 +66,7 @@ class LimelightVision {
     protected double getError() {
         double x = table.getEntry("tx").getDouble(0.0);
 
-        if (DriverStation.isOperatorControl()) {
+        if (DriverStation.isTeleop()) {
             x += 1.0;
         }
 

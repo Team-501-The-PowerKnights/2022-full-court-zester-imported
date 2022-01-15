@@ -164,7 +164,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         if (DriverStation.isAutonomous()) {
             encoder.setPosition(convertTurretAngleToCounts(-90));
-        } else if (DriverStation.isOperatorControl()) {
+        } else if (DriverStation.isTeleop()) {
             double firstAngle = getAngle();
 
             /*
