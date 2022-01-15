@@ -7,10 +7,9 @@
 
 package frc.robot.subsystems.turret;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -44,8 +43,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
      */
 
     private final CANSparkMax motor;
-    private final CANEncoder encoder;
-    private final CANPIDController pid;
+    private final RelativeEncoder encoder;
+    private final SparkMaxPIDController pid;
 
     private final ITurretLocationSensor location;
 
@@ -61,9 +60,9 @@ class TurretSubsystem extends BaseTurretSubsystem {
         motor.restoreFactoryDefaults();
         // +CW +, CCW -
         motor.setInverted(true);
-        encoder = new CANEncoder(motor);
+        encoder = motor.getEncoder();
 
-        pid = new CANPIDController(motor);
+        pid = motor.getPIDController();
         pid.setIZone(0.25, 1);
         pid.setIMaxAccum(1, 1);
         pid.setP(pid_P, 1);
@@ -122,7 +121,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void stop() {
-        pid.setReference(0, ControlType.kVoltage);
+        pid.setReference(0, CANSparkMax.ControlType.kVoltage);
         motor.set(0.0);
     }
 
@@ -136,7 +135,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         double targetCounts = convertTurretAngleToCounts(angle);
 
-        pid.setReference(targetCounts, ControlType.kPosition, 1);
+        pid.setReference(targetCounts, CANSparkMax.ControlType.kPosition, 1);
     }
 
     @Override
@@ -155,7 +154,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         SmartDashboard.putNumber(TelemetryNames.Turret.visionPIDOutput, steering_adjust);
 
-        pid.setReference(steering_adjust, ControlType.kVoltage, 1);
+        pid.setReference(steering_adjust, CANSparkMax.ControlType.kVoltage, 1);
     }
 
     @Override

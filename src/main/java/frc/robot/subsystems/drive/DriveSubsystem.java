@@ -9,7 +9,7 @@ package frc.robot.subsystems.drive;
 
 import java.util.List;
 
-import com.revrobotics.CANEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -77,8 +77,8 @@ class DriveSubsystem extends BaseDriveSubsystem {
     private final CANSparkMax rightFrontMotor;
     private final CANSparkMax rightRearMotor;
 
-    private final CANEncoder leftEncoder;
-    private final CANEncoder rightEncoder;
+    private final RelativeEncoder leftEncoder;
+    private final RelativeEncoder rightEncoder;
 
     private final IGyroSensor nav;
 
@@ -105,9 +105,9 @@ class DriveSubsystem extends BaseDriveSubsystem {
         leftRearMotor.follow(leftFrontMotor);
         rightRearMotor.follow(rightFrontMotor);
 
-        leftEncoder = new CANEncoder(leftFrontMotor);
+        leftEncoder = leftFrontMotor.getEncoder();
         leftEncoder.setPosition(0.0);
-        rightEncoder = new CANEncoder(rightFrontMotor);
+        rightEncoder = rightFrontMotor.getEncoder();
         rightEncoder.setPosition(0.0);
 
         nav = GyroFactory.getInstance();

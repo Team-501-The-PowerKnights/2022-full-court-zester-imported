@@ -7,10 +7,9 @@
 
 package frc.robot.subsystems.turret;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -40,8 +39,8 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
      */
 
     private CANSparkMax turretMotor;
-    private CANEncoder turretEncoder;
-    private CANPIDController turretPID;
+    private RelativeEncoder turretEncoder;
+    private SparkMaxPIDController turretPID;
 
     // private TalonSRX incrementer; // Unused for now
 
@@ -56,9 +55,9 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
         turretMotor = new CANSparkMax(20, MotorType.kBrushless);
         turretMotor.restoreFactoryDefaults();
         // +CW +, CCW -
-        turretEncoder = new CANEncoder(turretMotor);
+        turretEncoder = turretMotor.getEncoder();
 
-        turretPID = new CANPIDController(turretMotor);
+        turretPID = turretMotor.getPIDController();
         turretPID.setP(pid_P);
         turretPID.setI(pid_I);
         turretPID.setD(pid_D);
@@ -105,7 +104,7 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void stop() {
-        turretPID.setReference(0, ControlType.kVoltage);
+        turretPID.setReference(0, CANSparkMax.ControlType.kVoltage);
     }
 
     @Override

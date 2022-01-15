@@ -9,7 +9,7 @@ package frc.robot.subsystems.drive;
 
 import java.util.List;
 
-import com.revrobotics.CANEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -17,7 +17,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.slf4j.Logger;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -77,11 +77,11 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
     private final CANSparkMax rightFrontMotor;
     private final CANSparkMax rightRearMotor;
 
-    private final SpeedControllerGroup left;
-    private final SpeedControllerGroup right;
+    private final MotorControllerGroup left;
+    private final MotorControllerGroup right;
 
-    private final CANEncoder leftEncoder;
-    private final CANEncoder rightEncoder;
+    private final RelativeEncoder leftEncoder;
+    private final RelativeEncoder rightEncoder;
 
     private final IGyroSensor nav;
 
@@ -97,14 +97,14 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
         rightFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
         rightRearMotor = new CANSparkMax(21, MotorType.kBrushless);
 
-        left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
-        right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
+        left = new MotorControllerGroup(leftFrontMotor, leftRearMotor);
+        right = new MotorControllerGroup(rightFrontMotor, rightRearMotor);
 
         left.setInverted(false);
         right.setInverted(true);
 
-        leftEncoder = new CANEncoder(leftFrontMotor);
-        rightEncoder = new CANEncoder(rightFrontMotor);
+        leftEncoder = leftFrontMotor.getEncoder();
+        rightEncoder = rightFrontMotor.getEncoder();
 
         nav = GyroFactory.getInstance();
 
