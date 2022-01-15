@@ -35,9 +35,6 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
     /** Our subsystem's name **/
     protected static final String myName = SubsystemNames.shooterName;
 
-    /** Handle to WPILib preferences manager **/
-    protected final Preferences prefs;
-
     /** Shooter PID defaults for subystem **/
     protected double pid_P = 0.002;
     protected double pid_I = 0;
@@ -47,7 +44,6 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
     protected BaseShooterSubsystem() {
         logger.info("constructing");
 
-        prefs = Preferences.getInstance();
         // load the current preferences
         loadPreferences();
 
@@ -83,16 +79,16 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         double v;
 
         logger.info("new preferences for {}:", myName);
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_P, 0.002);
+        v = Preferences.getDouble(PreferenceNames.Shooter.pid_P, 0.002);
         logger.info("{} = {}", PreferenceNames.Shooter.pid_P, v);
         pid_P = v;
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_I, 0.0);
+        v = Preferences.getDouble(PreferenceNames.Shooter.pid_I, 0.0);
         logger.info("{} = {}", PreferenceNames.Shooter.pid_I, v);
         pid_I = v;
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_D, 1.0);
+        v = Preferences.getDouble(PreferenceNames.Shooter.pid_D, 1.0);
         logger.info("{} = {}", PreferenceNames.Shooter.pid_D, v);
         pid_D = v;
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_F, 0.0002);
+        v = Preferences.getDouble(PreferenceNames.Shooter.pid_F, 0.0002);
         logger.info("{} = {}", PreferenceNames.Shooter.pid_F, v);
         pid_F = v;
     }

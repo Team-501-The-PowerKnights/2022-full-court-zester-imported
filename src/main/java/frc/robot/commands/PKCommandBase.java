@@ -11,8 +11,6 @@ import java.util.HashSet;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.Preferences;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import riolog.RioLogger;
@@ -49,17 +47,12 @@ public abstract class PKCommandBase extends CommandBase {
     public static PKCommandBase[] getActiveCommands() {
         return activeCommandsList;
     }
-
-    // Handle to the preferences
-    protected final Preferences prefs;
     
     // Flag for whether the first execution has happened
     private boolean executeOnce;
 
     protected PKCommandBase() {
         logger.info("constructing for {}", getName());
-
-        prefs = Preferences.getInstance();
 
         logger.info("constructed");
     }
