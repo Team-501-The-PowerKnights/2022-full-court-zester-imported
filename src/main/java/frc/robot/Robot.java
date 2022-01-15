@@ -52,9 +52,6 @@ public class Robot extends TimedRobot {
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(Robot.class.getName());
 
-    // Handle to the dashboard
-    private DriverStation ds;
-
     private OI oi;
 
     private TelemetryManager tlmMgr;
@@ -137,11 +134,9 @@ public class Robot extends TimedRobot {
      * data, which holds the run-spinTime configuration.
      **/
     private void waitForDriverStationData() {
-        // Save off a copy for class to use
-        ds = DriverStation.getInstance();
 
         long count = 0;
-        while (!ds.isNewControlData()) {
+        while (!DriverStation.isNewControlData()) {
             if ((count % 100) == 0) {
                 logger.trace("Waiting ...");
             }
@@ -270,12 +265,12 @@ public class Robot extends TimedRobot {
      * was.
      **/
     private void logMatchData() {
-        logger.info("EventName:     {}", ds.getEventName());
-        logger.info("MatchType:     {}", ds.getMatchType());
-        logger.info("MatchNumber:   {}", ds.getMatchNumber());
-        logger.info("ReplayNumber:  {}", ds.getReplayNumber());
-        logger.info("Alliance:      {}", ds.getAlliance());
-        logger.info("Location:      {}", ds.getLocation());
+        logger.info("EventName:     {}", DriverStation.getEventName());
+        logger.info("MatchType:     {}", DriverStation.getMatchType());
+        logger.info("MatchNumber:   {}", DriverStation.getMatchNumber());
+        logger.info("ReplayNumber:  {}", DriverStation.getReplayNumber());
+        logger.info("Alliance:      {}", DriverStation.getAlliance());
+        logger.info("Location:      {}", DriverStation.getLocation());
     }
 
     /**
