@@ -35,7 +35,7 @@ public class RobotSetFar extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3395); // 3295
+        shooter.setTargetRpm(3600); // 3295 // was 3395 11/6/21
     }
 
     @Override

@@ -7,10 +7,9 @@
 
 package frc.robot.subsystems.shooter;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,9 +36,9 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     private CANSparkMax rightMotor;
 
     // Encoder
-    private CANEncoder encoder;
+    private RelativeEncoder encoder;
     // PID
-    private CANPIDController pid;
+    private SparkMaxPIDController pid;
 
     // Value of the RPM to use for speed
     private double targetRpm;
@@ -64,17 +63,17 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         // Slaved and inverted
         rightMotor.follow(leftMotor, true);
 
-        encoder = new CANEncoder(leftMotor);
+        encoder = leftMotor.getEncoder();
 
-        pid = new CANPIDController(leftMotor);
+        pid = leftMotor.getPIDController();
         pid.setOutputRange(0, 1, slotID);
 
         updatePreferences();
 
-        targetRpm = 3295; // TODO - Make the values
+        targetRpm = 2000; // TODO - Make the values
         isActive = false;
 
-        SmartDashboard.putNumber(CommandingNames.Shooter.tolerance, 0.015);
+        SmartDashboard.putNumber(CommandingNames.Shooter.tolerance, 0.012);
 
         logger.info("constructed");
     }
@@ -137,7 +136,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         this.targetRpm = rpm; // Save off value for enabling
 
         if (isActive) {
-            pid.setReference(targetRpm, ControlType.kVelocity, slotID);
+            pid.setReference(targetRpm, CANSparkMax.ControlType.kVelocity, slotID);
         }
     }
 
@@ -145,7 +144,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     public void shoot() {
         isActive = true;
         /* generated speed */
-        pid.setReference(targetRpm, ControlType.kVelocity, slotID);
+        pid.setReference(targetRpm, CANSparkMax.ControlType.kVelocity, slotID);
     }
 
     // FIXME - Was supposed to be for manual; no idleShooter scaling
@@ -183,7 +182,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public boolean atTargetVelocity() {
         // FIXME - Find a way to only get a change via GUI
-        tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.015);
+        tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.012);
 
         return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= tolerance);
     }

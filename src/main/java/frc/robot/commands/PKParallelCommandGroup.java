@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import riolog.RioLogger;
@@ -25,16 +24,11 @@ public class PKParallelCommandGroup extends ParallelCommandGroup {
     // FIXME - Use handle to CommandTracker class (TBW)
     // FIXME - Commands are handled differently (not through scheduler)
 
-    // Handle to the preferences
-    protected final Preferences prefs;
-
     // Flag for whether the first execution has happened
     private boolean executeOnce;
 
     public PKParallelCommandGroup() {
         logger.info("constructing for {}", getName());
-
-        prefs = Preferences.getInstance();
 
         logger.info("constructed");
     }
@@ -42,8 +36,6 @@ public class PKParallelCommandGroup extends ParallelCommandGroup {
     public PKParallelCommandGroup(Command... commands) {
         super(commands);
         logger.info("constructing for {}", getName());
-
-        prefs = Preferences.getInstance();
 
         logger.info("constructed");
     }

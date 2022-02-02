@@ -49,7 +49,7 @@ public class FirePoseFormula extends PKCommandBase {
 
         double ty = vision.getY();
 
-        targetRpm = (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4;
+        targetRpm = 1.2 * (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4; // no 1.2 11/6/21
 
         shooter.setTargetRpm(targetRpm);
     }

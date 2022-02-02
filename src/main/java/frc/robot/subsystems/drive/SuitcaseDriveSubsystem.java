@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -31,7 +31,7 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
     private final VictorSP rightFrontMotor;
     private final VictorSP rightRearMotor;
 
-    private final SpeedControllerGroup right;
+    private final MotorControllerGroup right;
 
     SuitcaseDriveSubsystem() {
         logger.info("constructing");
@@ -42,7 +42,7 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
         rightRearMotor = new VictorSP(0);
 
         leftRearMotor.follow(leftFrontMotor);
-        right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
+        right = new MotorControllerGroup(rightFrontMotor, rightRearMotor);
 
         leftFrontMotor.setInverted(false);
         right.setInverted(true);

@@ -164,4 +164,3 @@ bin/
 
 ### Manually ignored ###
 # Team501Robot interface class
-src/main/java/frc/robot/Team501Robot.java

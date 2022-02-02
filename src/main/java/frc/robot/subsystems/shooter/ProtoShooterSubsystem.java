@@ -7,9 +7,8 @@
 
 package frc.robot.subsystems.shooter;
 
-import com.revrobotics.CANPIDController;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
    */
 
   private CANSparkMax motor;
-  private CANPIDController shootPID;
+  private SparkMaxPIDController shootPID;
 
   /**
    * Creates a new ShooterSubsystem.
@@ -44,7 +43,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
     motor = new CANSparkMax(50, MotorType.kBrushless);
 
-    shootPID = new CANPIDController(motor);
+    shootPID = motor.getPIDController();
     shootPID.setP(flywheelP);
     shootPID.setI(flywheelI);
     shootPID.setD(flywheelD);
@@ -84,20 +83,20 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void stop() {
-    shootPID.setReference(0, ControlType.kVelocity);
+    shootPID.setReference(0, CANSparkMax.ControlType.kVelocity);
     motor.set(0.0);
   }
 
   @Override
   public void setTargetRpm(double rpm) {
     // TODO - Trajectory generation for speed
-    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+    shootPID.setReference(0.2 /* generated speed */, CANSparkMax.ControlType.kVelocity);
   }
 
   @Override
   public void shoot() {
     // TODO - Trajectory generation from vision data
-    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+    shootPID.setReference(0.2 /* generated speed */, CANSparkMax.ControlType.kVelocity);
   }
 
   @Override

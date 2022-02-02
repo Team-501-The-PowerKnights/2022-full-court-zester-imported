@@ -35,9 +35,6 @@ abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsy
     /** Our subsystem's name **/
     protected static final String myName = SubsystemNames.turretName;
 
-    /** Handle to WPILib preferences manager **/
-    protected final Preferences prefs;
-
     /** Turret PID defaults for subystem **/
     protected double pid_P = 0.5;
     protected double pid_I = 0.005;
@@ -47,7 +44,6 @@ abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsy
     protected BaseTurretSubsystem() {
         logger.info("constructing");
 
-        prefs = Preferences.getInstance();
         // Load the current preferences
         loadPreferences();
 
@@ -83,16 +79,16 @@ abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsy
         double v;
 
         logger.info("new preferences for {}:", myName);
-        v = prefs.getDouble(PreferenceNames.Turret.pid_P, 0.5);
+        v = Preferences.getDouble(PreferenceNames.Turret.pid_P, 0.5);
         logger.info("{} = {}", PreferenceNames.Turret.pid_P, v);
         pid_P = v;
-        v = prefs.getDouble(PreferenceNames.Turret.pid_I, 0.005);
+        v = Preferences.getDouble(PreferenceNames.Turret.pid_I, 0.005);
         logger.info("{} = {}", PreferenceNames.Turret.pid_I, v);
         pid_I = v;
-        v = prefs.getDouble(PreferenceNames.Turret.pid_D, 1);
+        v = Preferences.getDouble(PreferenceNames.Turret.pid_D, 1);
         logger.info("{} = {}", PreferenceNames.Turret.pid_D, v);
         pid_D = v;
-        v = prefs.getDouble(PreferenceNames.Turret.pid_F, 0.0);
+        v = Preferences.getDouble(PreferenceNames.Turret.pid_F, 0.0);
         logger.info("{} = {}", PreferenceNames.Turret.pid_F, v);
         pid_F = v;
     }

@@ -104,7 +104,6 @@ class AHRSGyro {
             }
         }
         logger.debug("zeroYaw::done ... yaw={}", ahrs.getYaw());
-        logger.trace("zeroYaw: done ... pidGet={}", ahrs.pidGet());
         logger.trace("zeroYaw::done ... angle={}", ahrs.getAngle());
     }
 
