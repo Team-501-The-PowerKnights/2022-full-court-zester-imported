@@ -59,4 +59,6 @@ public interface IDriveSubsystem extends ISubsystem {
 
     public double getEncoderClicks();
 
+    public double getEncoderVelocity();
+
 }

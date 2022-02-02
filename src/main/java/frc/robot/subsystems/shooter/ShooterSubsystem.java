@@ -66,7 +66,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         encoder = leftMotor.getEncoder();
 
         pid = leftMotor.getPIDController();
-        pid.setOutputRange(0, 1, slotID);
+        pid.setOutputRange(0.05, 1, slotID);
 
         updatePreferences();
 
@@ -151,18 +151,18 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 21:
-            leftMotor.set(idleShooter(speed));
-            break;
-        case 22:
-            rightMotor.set(idleShooter(speed));
-            break;
-        case 29:
-            // Assuming slaved
-            leftMotor.set(idleShooter(speed));
-            break;
-        default:
-            break;
+            case 21:
+                leftMotor.set(idleShooter(speed));
+                break;
+            case 22:
+                rightMotor.set(idleShooter(speed));
+                break;
+            case 29:
+                // Assuming slaved
+                leftMotor.set(idleShooter(speed));
+                break;
+            default:
+                break;
         }
     }
 

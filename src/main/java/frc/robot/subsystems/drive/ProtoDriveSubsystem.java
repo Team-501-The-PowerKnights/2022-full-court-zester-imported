@@ -253,4 +253,10 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
         return 0;
     }
 
+    @Override
+    public double getEncoderVelocity() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }
