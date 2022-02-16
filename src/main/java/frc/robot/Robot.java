@@ -30,6 +30,7 @@ import frc.robot.preferences.PreferencesInitializer;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.sensors.ISensor;
 import frc.robot.sensors.SensorFactory;
+import frc.robot.sensors.turretlocation.ITurretLocationSensor;
 import frc.robot.telemetry.SchedulerProvider;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.telemetry.TelemetryNames;
@@ -61,6 +62,8 @@ public class Robot extends TimedRobot {
     //
     private List<ISensor> sensors;
     //
+    private ITurretLocationSensor locationSensor;
+    //
     private List<ISubsystem> subsystems;
 
     // Flag for having completed autonomous part of match
@@ -71,6 +74,8 @@ public class Robot extends TimedRobot {
     private boolean teleopComplete;
     // Flag for having run first operator control loop
     private boolean teleopFirstRun;
+    // Flag for turret being homed
+    private boolean homed;
 
     // Chooser from Dashboard
     private SendableChooser<Command> autoChooser;
@@ -120,11 +125,15 @@ public class Robot extends TimedRobot {
         // Create the chooser for autonomous command
         createAutoChooser();
 
+        // Grab turret location sensor out of list
+        locationSensor = (ITurretLocationSensor) sensors.get(1);
+
         // Initialize state variables
         autonomousComplete = false;
         autonomousFirstRun = false;
         teleopComplete = false;
         teleopFirstRun = false;
+        homed = false;
 
         logger.info("initialized");
     }
@@ -312,7 +321,12 @@ public class Robot extends TimedRobot {
         autoCommand = autoChooser.getSelected();
         logger.info("auto command is {}", autoCommand.getName());
         if (autoCommand != null) {
-            CommandScheduler.getInstance().schedule(true, new PKSequentialCommandGroup(new TurretHome(), autoCommand));
+            if (homed = false) {
+                CommandScheduler.getInstance().schedule(true,
+                        new PKSequentialCommandGroup(new TurretHome(), autoCommand));
+            } else {
+                CommandScheduler.getInstance().schedule(true, autoCommand);
+            }
         }
 
         logger.info("initialized autonomous");
@@ -351,6 +365,11 @@ public class Robot extends TimedRobot {
         // this line or comment it out.
         if (autoCommand != null) {
             autoCommand.cancel();
+        }
+
+        if (homed = false) {
+            CommandScheduler.getInstance().schedule(true,
+                    new TurretHome());
         }
 
         // Update the preferences
